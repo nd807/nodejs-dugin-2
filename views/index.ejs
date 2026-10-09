@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новости Ведомостей</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Новости Ведомостей</h1>
+    <form id="news-form">
+      <label for="count">Количество новостей</label>
+      <input id="count" type="number" min="1" value="5" required>
+
+      <label for="category">Категория</label>
+      <select id="category" required>
+        <option value="">Загрузка...</option>
+      </select>
+
+      <button type="submit">Показать новости</button>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('news-form')
+    const categorySelect = document.getElementById('category')
+
+    fetch('/categories')
+      .then(response => response.json())
+      .then(categories => {
+        categorySelect.innerHTML = categories
+          .map(category => `<option value="${category.value}">${category.name}</option>`)
+          .join('')
+      })
+
+    form.addEventListener('submit', event => {
+      event.preventDefault()
+      const count = document.getElementById('count').value
+      const category = categorySelect.value
+      window.location.href = `/${count}/news/for/${category}`
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= category %> — Новости</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container news-page">
+    <a class="back" href="/">← Выбрать другую категорию</a>
+    <h1><%= count %> последних новостей в категории «<%= category %>»</h1>
+
+    <% if (news.length === 0) { %>
+      <p>Новости не найдены</p>
+    <% } %>
+
+    <dl>
+      <% news.forEach(item => { %>
+        <dt><a href="<%= item.link %>" target="_blank"><%= item.title %></a></dt>
+        <dd>
+          <span class="date"><%= item.date %></span>
+          <!-- <p><%= item.description %></p> -->
+        </dd>
+      <% }) %>
+    </dl>
+  </main>
+</body>
+</html>
